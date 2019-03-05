@@ -42,7 +42,8 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-4">
-                <button type="submit" class="btn green">{{ __('products.pages.create.button') }}</button>
+                <button type="submit" class="btn green" name="btn_save">{{ __('products.pages.create.button') }}</button>
+                <button type="submit" class="button button-primary" name="btn_continue">{{ __('products.pages.create.btn-continue') }}</button>
             </div>
         </div>
     </form>
