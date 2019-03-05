@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StockCreateRequest;
 use App\Product;
 use App\Type;
 
@@ -13,9 +14,9 @@ class StockController extends Controller
 
     }
 
-    public function create(Product $product = null)
+    public function create(Product $product=null)
     {
-        $categories = Type::where('name', 'stock')->all();
+        $categories = Type::where('name', 'stock')->get();
         if ($product) {
             return view('stocks.create', ['product' => $product, 'categories', $categories]);
         }
