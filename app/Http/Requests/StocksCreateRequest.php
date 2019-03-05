@@ -24,7 +24,7 @@ class StocksCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alphanumeric',
+            'name' => 'required|alpha_num',
             'category_id' => 'required|exists:types,id',
             'price' => 'required',
             'lot' => 'required',

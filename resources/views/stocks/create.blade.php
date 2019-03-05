@@ -20,9 +20,13 @@
         <div class="form-group">
             <label for="category_id" class="col-md-2 control-label">{{ __('stocks.pages.create.category_id') }}</label>
             <div class="col-md-8{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
-                <input type="text" class="form-control" id="category_id" name="category_id" value="{{ old('category_id') }}" />
+                <select name="category_id" id="" class="js-example-basic-single form-control">
+
+                </select>
                 @if ($errors->has('category_id'))
-                    <div class="alert alert-danger"><strong>{{ $errors->first('category_id') }}</strong></div>
+                    <div class="alert alert-danger">
+                        <strong>{{ $errors->first('category_id') }}</strong>
+                    </div>
                 @endif
             </div>
         </div>
@@ -53,8 +57,30 @@
                 @endif
             </div>
         </div>
+        <div class="form-group{{ $errors->has('description') ? ' is-invalid' : '' }}">
+            <label for="description" class="col-md-2 control-label">{{ __('stocks.pages.create.description') }}</label>
+            <div class="col-md-8">
+                <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ old('description') }}</textarea>
+                @if ($errors->has('description'))
+                    <div class="alert-danger">
+                        <strong>{{ $errors->first('description') }}</strong>
+                    </div>
+                @endif
+            </div>
+        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">{{ __('stocks.pages.create.submit') }}</button>
         </div>
     </form>
+@endsection
+
+@section('scripts')
+    jQuery(document).ready(function($) {
+        $('.js-example-basic-single').select2({
+            ajax: {
+                url: "{{ route('types.get') }}",
+                dataType: 'json',
+            }
+        });
+    });
 @endsection

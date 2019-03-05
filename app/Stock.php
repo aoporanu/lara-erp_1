@@ -10,7 +10,8 @@ class Stock extends Model
         'qty',
         'name',
         'description',
-        'price'
+        'price',
+        'lot',
     ];
 
     public function products()
