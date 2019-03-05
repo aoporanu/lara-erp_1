@@ -25,7 +25,7 @@ Route::get('product/create', 'ProductController@create')->name('products.create'
 
 Route::post('product/store', 'ProductController@store')->name('products.store');
 
-Route::get('stock/create/{product}', 'StockController@create')->name('stocks.create');
+Route::get('stock/create/{product?}', 'StockController@create')->name('stocks.create');
 
 Route::post('stock/store', 'StockController@store')->name('stocks.store');
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StockCreateRequest;
+use App\Http\Requests\StocksCreateRequest;
 use App\Product;
 use App\Type;
 
@@ -23,7 +23,7 @@ class StockController extends Controller
         return view('stocks.create', ['categories' => $categories]);
     }
 
-    public function store(StockCreateRequest $request)
+    public function store(StocksCreateRequest $request)
     {
         $stock = new Stock;
         $stock->name = $request->get('name');
