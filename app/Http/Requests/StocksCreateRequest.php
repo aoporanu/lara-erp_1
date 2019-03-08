@@ -28,7 +28,8 @@ class StocksCreateRequest extends FormRequest
             'category_id' => 'required|exists:types,id',
             'price' => 'required',
             'lot' => 'required',
-            'qty' => 'required|min:1'
+            'qty' => 'required|min:1',
+            'product' => 'required'
         ];
     }
 }

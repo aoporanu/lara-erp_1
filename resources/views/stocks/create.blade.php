@@ -16,13 +16,22 @@
                 @endif
             </div>
         </div>
-        <input type="hidden" name="product" value="{{ $product }}">
+        @if (isset($product))
+            <input type="hidden" name="product" value="{{ $product }}">
+        @else
+            <div class="form-group{{ $errors->has('product') ? ' is-invalid' : '' }}">
+                <label for="products" class="col-md-2 control-label">{{ __('stocks.pages.create.product') }}</label>
+                <div class="col-md-8">
+                    <select name="products" id="products" class="js-products-single">
+
+                    </select>
+                </div>
+            </div>
+        @endif
         <div class="form-group">
             <label for="category_id" class="col-md-2 control-label">{{ __('stocks.pages.create.category_id') }}</label>
             <div class="col-md-8{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
-                <select name="category_id" id="" class="js-example-basic-single form-control">
-
-                </select>
+                <input type="text" name="category_id" id="category_id" class="js-example-basic-single form-control" value="{{ old('category_id') }}" />
                 @if ($errors->has('category_id'))
                     <div class="alert alert-danger">
                         <strong>{{ $errors->first('category_id') }}</strong>
@@ -75,12 +84,27 @@
 @endsection
 
 @section('scripts')
+    <script>
     jQuery(document).ready(function($) {
-        $('.js-example-basic-single').select2({
-            ajax: {
-                url: "{{ route('types.get') }}",
-                dataType: 'json',
-            }
-        });
+        let grid = [];
+        let jsonTypes = $.ajax({
+            url: "{{ route('types.get', ['type' => 'stocks']) }}",
+            dataType: "json"
+        }).done(function(response) {
+            console.info(response);
+            $('.js-example-basic-single').easyAutocomplete(response['data']);
+        })
+        // $('.js-example-basic-single').easyAutocomplete(options);
+
+        {{-- console.info(types); --}}
+
+
+        // $('.js-products-single').select2({
+        //     ajax: {
+        //         url: "{{ route('products.index') }}",
+        //         dataType: 'json'
+        //     }
+        // });
     });
+    </script>
 @endsection
