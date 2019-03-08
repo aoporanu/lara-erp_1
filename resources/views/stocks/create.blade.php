@@ -86,17 +86,29 @@
 @section('scripts')
     <script>
     jQuery(document).ready(function($) {
-        let grid = [];
         let jsonTypes = $.ajax({
             url: "{{ route('types.get', ['type' => 'stocks']) }}",
             dataType: "json"
         }).done(function(response) {
-            console.info(response);
-            $('.js-example-basic-single').easyAutocomplete(response['data']);
-        })
-        // $('.js-example-basic-single').easyAutocomplete(options);
+            let filtered = new Array();
+            $.each(response, function(index, item) {
+                if(item.id > 0) {
+                    filtered.push(item.name);
+                }
+            });
+            let options = {
+                data: filtered
+            };
+            $('.js-example-basic-single').easyAutocomplete(options);
+        });
 
-        {{-- console.info(types); --}}
+        let jsonProducts = $.ajax({
+            url: "{{ route('products.index') }}",
+            dataType: 'json'
+        }).done(function(response) {
+            let filtered = new Array();
+
+        });
 
 
         // $('.js-products-single').select2({

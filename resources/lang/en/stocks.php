@@ -11,6 +11,7 @@ return [
             'qty' => 'Stock Quantity',
             'submit' => 'Create stock',
             'description' => 'Stock Description',
+            'product' => 'Product'
         ],
         'index' => [
             'id' => '#',

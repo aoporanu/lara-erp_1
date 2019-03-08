@@ -12,6 +12,12 @@ class ProductController extends Controller
     {
         $products = Product::all();
 
+        if(request()->ajax()) {
+            $products = Product::all()->get(['id', 'name']);
+
+            return response()->json($products);
+        }
+
         return view('products.index', compact('products'));
     }
 
