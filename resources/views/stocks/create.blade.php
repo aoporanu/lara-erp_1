@@ -26,7 +26,12 @@
                         <option value=""></option>
                     </select>--}}
                      <input type="text" name="products" id="products" class="bs-autocomplete form-control" value="{{ old('products') }}" data-source="{{ route('products.index') }}" data-hidden_field_id="product_id" data-item_id="id" data-name="products" data-item_label="productName" autocomplete="off" />
-                    <input type="hidden" id="product_id" value="" name="" />
+                    <input type="hidden" id="product_id" value="" name="product_id" />
+                    @if($errors->has('product_id'))
+                        <div class="alert alert-danger">
+                            <strong>{{ $errors->first('product_id') }}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endif
@@ -35,9 +40,9 @@
             <div class="col-md-8{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
                  <input type="text" name="category_id" id="category_id" class="bs-autocomplete form-control" value="{{ old('category_id') }}" data-source="{{ route('types.get', ['type' => 'stocks']) }}" data-hidden_field_id="category-id" data-item_id="id" data-name="category" data-item_label="categoryName" autocomplete="off" />
                 <input type="hidden" id="category-id" value="" name="category__id" />
-                @if ($errors->has('category_id'))
+                @if ($errors->has('category__id'))
                     <div class="alert alert-danger">
-                        <strong>{{ $errors->first('category_id') }}</strong>
+                        <strong>{{ $errors->first('category__id') }}</strong>
                     </div>
                 @endif
             </div>
@@ -87,61 +92,5 @@
 @endsection
 
 @section('scripts')
-    <script>
-    jQuery(document).ready(function($) {
-        {{--let jsonTypes = $.ajax({--}}
-            {{--url: "{{ route('types.get', ['type' => 'stocks']) }}",--}}
-            {{--dataType: "json"--}}
-        {{--}).done(function(response) {--}}
-            {{--// $('.js-example-basic-single').select2(iterate(response));--}}
-            {{--// console.info(response);--}}
-            {{--$('.js-example-basic-single').select2({--}}
-                {{--data: iterate(response),--}}
-                {{--formatSelection: format,--}}
-                {{--formatResult: format--}}
-            {{--});--}}
-        {{--});--}}
 
-        {{--$('.js-products-single').select2({--}}
-            {{--ajax: {--}}
-                {{--url: "{{ route('products.index') }}",--}}
-                {{--processResults: function(data) {--}}
-                    {{--return {--}}
-                        {{--results: data--}}
-                    {{--};--}}
-                {{--}--}}
-            {{--}--}}
-        {{--});--}}
-
-        // let jsonProducts = $.ajax({
-        //     url: "{{ route('products.index') }}",
-        //     dataType: 'json'
-        // }).done(function(response) {
-        //     $('.js-products-single').select2({
-        //
-        //     });
-        // });
-
-        /**
-         * Iterate over the response from the jquery, return options array
-         *
-         * @param response the json response from the ajax call
-         */
-        function iterate(response) {
-            let filtered = new Array();
-            // This was used with
-            $.each(response, function(index, item) {
-                if(item.id > 0) {
-                    filtered.push(item);
-                }
-            });
-
-            return filtered;
-        }
-
-        function format(item) {
-            return item.name;
-        }
-    });
-    </script>
 @endsection

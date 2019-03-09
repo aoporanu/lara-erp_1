@@ -9,26 +9,34 @@ use App\Type;
 
 class TypesController extends Controller
 {
-    public function index()
+    /**
+     * @param null $type
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
+    public function index($type=null)
     {
-        $types = Type::all();
+        if (request()->ajax()) {
+            $types = Type::where('for', '=', $type)->get(['id', 'name']);
 
+            return response()->json($types);
+        }
+        $types = Type::all();
         return view('types.index', ['types' => $types]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('types.create');
     }
 
+    /**
+     * @param TypesCreateRequest $request
+     */
     public function store(TypesCreateRequest $request)
     {
 
-    }
-
-    public function get($type=null)
-    {
-        $types = Type::where('for', '=', $type)->get(['id', 'name']);
-        return response()->json($types);
     }
 }

@@ -22,22 +22,21 @@ class StockController extends Controller
 
     public function create(Product $product=null)
     {
-        // to get things like GRAT or OTB
-        $categories = Type::where('for', 'stock')->get(['id', 'name']);
         if ($product) {
+            // to get things like GRAT or OTB
+            $categories = Type::where('for', 'stock')->get(['id', 'name']);
             return view('stocks.create', ['product' => $product, 'categories', $categories]);
         }
-        return view('stocks.create', ['categories' => $categories]);
+        return view('stocks.create');
     }
 
     public function store(StocksCreateRequest $request)
     {
-        $category = Category::where('name', '=', $request->get('category_id'))->get();
-        dd($category);
+        dd($request->all());
         $stock = new Stock;
         $stock->name = $request->get('name');
-        $stock->category_id = $request->get('category_id');
-        $stock->product_id = $request->get('product');
+        $stock->category_id = $request->get('category__id');
+        $stock->product_id = $request->get('product_id');
         $stock->price = $request->get('price');
         $stock->lot = $request->get('lot');
         $stock->qty = $request->get('qty');

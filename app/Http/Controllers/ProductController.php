@@ -43,6 +43,9 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
-        $product->delete();
+        try {
+            $product->delete();
+        } catch (\Exception $e) {
+        }
     }
 }

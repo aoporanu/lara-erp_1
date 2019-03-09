@@ -4,6 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed name
+ * @property mixed description
+ * @property mixed price
+ */
 class Product extends Model
 {
     protected $fillable = [

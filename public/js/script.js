@@ -75,3 +75,25 @@ $.widget('ui.autocomplete', $.ui.autocomplete, {
         // end autocomplete
     });
 })();
+
+
+/**
+ * Iterate over the response from the jquery, return options array
+ *
+ * @param response the json response from the ajax call
+ */
+function iterate(response) {
+    let filtered = new Array();
+    // This was used with
+    $.each(response, function(index, item) {
+        if(item.id > 0) {
+            filtered.push(item);
+        }
+    });
+
+    return filtered;
+}
+
+function format(item) {
+    return item.name;
+}
