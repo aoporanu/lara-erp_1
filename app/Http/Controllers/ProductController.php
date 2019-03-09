@@ -13,7 +13,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         if(request()->ajax()) {
-            $products = Product::all()->get(['id', 'name']);
+            $products = Product::select('id', 'name')->get();
 
             return response()->json($products);
         }

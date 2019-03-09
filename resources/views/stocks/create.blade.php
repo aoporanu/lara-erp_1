@@ -22,9 +22,7 @@
             <div class="form-group{{ $errors->has('product') ? ' is-invalid' : '' }}">
                 <label for="products" class="col-md-2 control-label">{{ __('stocks.pages.create.product') }}</label>
                 <div class="col-md-8">
-                    <select name="products" id="products" class="js-products-single">
-
-                    </select>
+                    <input type="text" name="products" id="products" class="js-products-single form-control" value="{{ old('products') }}" />
                 </div>
             </div>
         @endif
@@ -90,6 +88,22 @@
             url: "{{ route('types.get', ['type' => 'stocks']) }}",
             dataType: "json"
         }).done(function(response) {
+            $('.js-example-basic-single').easyAutocomplete(iterate(response));
+        });
+
+        let jsonProducts = $.ajax({
+            url: "{{ route('products.index') }}",
+            dataType: 'json'
+        }).done(function(response) {
+            $('.js-products-single').easyAutocomplete(iterate(response));
+        });
+
+        /**
+         * Iterate over the response from the jquery, return options array
+         *
+         * @param response the json response from the ajax call
+         */
+        function iterate(response) {
             let filtered = new Array();
             $.each(response, function(index, item) {
                 if(item.id > 0) {
@@ -99,24 +113,9 @@
             let options = {
                 data: filtered
             };
-            $('.js-example-basic-single').easyAutocomplete(options);
-        });
 
-        let jsonProducts = $.ajax({
-            url: "{{ route('products.index') }}",
-            dataType: 'json'
-        }).done(function(response) {
-            let filtered = new Array();
-
-        });
-
-
-        // $('.js-products-single').select2({
-        //     ajax: {
-        //         url: "{{ route('products.index') }}",
-        //         dataType: 'json'
-        //     }
-        // });
+            return options;
+        }
     });
     </script>
 @endsection
