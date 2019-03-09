@@ -22,14 +22,19 @@
             <div class="form-group{{ $errors->has('product') ? ' is-invalid' : '' }}">
                 <label for="products" class="col-md-2 control-label">{{ __('stocks.pages.create.product') }}</label>
                 <div class="col-md-8">
-                    <input type="text" name="products" id="products" class="js-products-single form-control" value="{{ old('products') }}" />
+                    {{--<select id="products" name="products" class="js-products-single form-control">
+                        <option value=""></option>
+                    </select>--}}
+                     <input type="text" name="products" id="products" class="bs-autocomplete form-control" value="{{ old('products') }}" data-source="{{ route('products.index') }}" data-hidden_field_id="product_id" data-item_id="id" data-name="products" data-item_label="productName" autocomplete="off" />
+                    <input type="hidden" id="product_id" value="" name="" />
                 </div>
             </div>
         @endif
         <div class="form-group">
             <label for="category_id" class="col-md-2 control-label">{{ __('stocks.pages.create.category_id') }}</label>
             <div class="col-md-8{{ $errors->has('category_id') ? ' is-invalid' : '' }}">
-                <input type="text" name="category_id" id="category_id" class="js-example-basic-single form-control" value="{{ old('category_id') }}" />
+                 <input type="text" name="category_id" id="category_id" class="bs-autocomplete form-control" value="{{ old('category_id') }}" data-source="{{ route('types.get', ['type' => 'stocks']) }}" data-hidden_field_id="category-id" data-item_id="id" data-name="category" data-item_label="categoryName" autocomplete="off" />
+                <input type="hidden" id="category-id" value="" name="category__id" />
                 @if ($errors->has('category_id'))
                     <div class="alert alert-danger">
                         <strong>{{ $errors->first('category_id') }}</strong>
@@ -84,19 +89,38 @@
 @section('scripts')
     <script>
     jQuery(document).ready(function($) {
-        let jsonTypes = $.ajax({
-            url: "{{ route('types.get', ['type' => 'stocks']) }}",
-            dataType: "json"
-        }).done(function(response) {
-            $('.js-example-basic-single').easyAutocomplete(iterate(response));
-        });
+        {{--let jsonTypes = $.ajax({--}}
+            {{--url: "{{ route('types.get', ['type' => 'stocks']) }}",--}}
+            {{--dataType: "json"--}}
+        {{--}).done(function(response) {--}}
+            {{--// $('.js-example-basic-single').select2(iterate(response));--}}
+            {{--// console.info(response);--}}
+            {{--$('.js-example-basic-single').select2({--}}
+                {{--data: iterate(response),--}}
+                {{--formatSelection: format,--}}
+                {{--formatResult: format--}}
+            {{--});--}}
+        {{--});--}}
 
-        let jsonProducts = $.ajax({
-            url: "{{ route('products.index') }}",
-            dataType: 'json'
-        }).done(function(response) {
-            $('.js-products-single').easyAutocomplete(iterate(response));
-        });
+        {{--$('.js-products-single').select2({--}}
+            {{--ajax: {--}}
+                {{--url: "{{ route('products.index') }}",--}}
+                {{--processResults: function(data) {--}}
+                    {{--return {--}}
+                        {{--results: data--}}
+                    {{--};--}}
+                {{--}--}}
+            {{--}--}}
+        {{--});--}}
+
+        // let jsonProducts = $.ajax({
+        //     url: "{{ route('products.index') }}",
+        //     dataType: 'json'
+        // }).done(function(response) {
+        //     $('.js-products-single').select2({
+        //
+        //     });
+        // });
 
         /**
          * Iterate over the response from the jquery, return options array
@@ -105,16 +129,18 @@
          */
         function iterate(response) {
             let filtered = new Array();
+            // This was used with
             $.each(response, function(index, item) {
                 if(item.id > 0) {
-                    filtered.push(item.name);
+                    filtered.push(item);
                 }
             });
-            let options = {
-                data: filtered
-            };
 
-            return options;
+            return filtered;
+        }
+
+        function format(item) {
+            return item.name;
         }
     });
     </script>

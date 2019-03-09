@@ -29,8 +29,6 @@ class TypesController extends Controller
     public function get($type=null)
     {
         $types = Type::where('for', '=', $type)->get(['id', 'name']);
-        return response()->json(
-            $types
-        );
+        return response()->json($types);
     }
 }

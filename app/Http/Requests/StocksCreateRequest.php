@@ -25,7 +25,7 @@ class StocksCreateRequest extends FormRequest
     {
         return [
             'name' => 'required|alpha_num',
-            'category_id' => 'required|exists:types,id',
+//            'category_id' => 'required|exists:types,name',
             'price' => 'required',
             'lot' => 'required',
             'qty' => 'required|min:1',

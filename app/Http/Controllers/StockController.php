@@ -7,6 +7,7 @@ use App\Http\Requests\StocksCreateRequest;
 use App\Stock;
 use App\Product;
 use App\Type;
+use Illuminate\Support\Facades\Redirect;
 
 class StockController extends Controller
 {
@@ -23,7 +24,6 @@ class StockController extends Controller
     {
         // to get things like GRAT or OTB
         $categories = Type::where('for', 'stock')->get(['id', 'name']);
-        // dump($categories);
         if ($product) {
             return view('stocks.create', ['product' => $product, 'categories', $categories]);
         }
@@ -32,6 +32,8 @@ class StockController extends Controller
 
     public function store(StocksCreateRequest $request)
     {
+        $category = Category::where('name', '=', $request->get('category_id'))->get();
+        dd($category);
         $stock = new Stock;
         $stock->name = $request->get('name');
         $stock->category_id = $request->get('category_id');

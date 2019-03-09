@@ -38,3 +38,7 @@ Route::get('type/create', 'TypesController@create')->name('types.create');
 Route::post('type/store', 'TypesController@store')->name('types.store');
 
 Route::get('types/get/{type?}', 'TypesController@get')->name('types.get');
+
+Route::get('/laraerp', function() {
+    LaraERP::sayHello();
+});

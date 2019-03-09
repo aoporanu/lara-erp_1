@@ -15,8 +15,8 @@
 
     <!-- Styles -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <link rel="stylesheet" href="/css/easy-autocomplete/easy-autocomplete.min.css" />
-    <link rel="stylesheet" href="/css/easy-autocomplete.themes.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('css/autocomplete.css') }}" />
 </head>
 <body>
     <div id="app">
@@ -75,7 +75,9 @@
             @yield('content')
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="{{ asset('js/easy-autocomplete/jquery.easy-autocomplete.js') }}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/ui/jquery-ui-git.js"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
             @yield('scripts')
     </div>
 </body>
