@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed lot
  * @property mixed qty
  * @property mixed description
+ * @method static leftJoin(string $string, string $string1, string $string2, string $string3)
  */
 class Stock extends Model
 {
@@ -21,6 +22,8 @@ class Stock extends Model
         'description',
         'price',
         'lot',
+        'category_id',
+        'product_id'
     ];
 
     public function products()

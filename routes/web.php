@@ -33,3 +33,5 @@ Route::post('type/store', 'TypesController@store')->name('types.store');
 Route::get('/laraerp', function() {
     LaraERP::sayHello();
 });
+
+Route::get('/orders/{username?}', 'OrdersController@show')->name('orders.show');

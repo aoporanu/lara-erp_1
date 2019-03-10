@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use http\Client\Response;
 
 class StocksCreateRequest extends FormRequest
 {
@@ -26,11 +28,18 @@ class StocksCreateRequest extends FormRequest
         return [
             'name' => 'required|alpha_num',
             'category__id' => 'required|exists:types,id',
+            'category_id' => 'required|exists:types,name',
+            'product' => 'required|exists:products,name',
             'product_id' => 'required|exists:products,id',
             'price' => 'required',
             'lot' => 'required',
             'qty' => 'required|min:1',
             'product' => 'required'
         ];
+    }
+
+    public function response(array $errors)
+    {
+        return Response::json($errors);
     }
 }

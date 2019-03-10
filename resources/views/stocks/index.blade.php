@@ -21,7 +21,7 @@
                             <td>{{ $stock->id }}</td>
                             <td>{{ $stock->name }}</td>
                             <td>{{ $stock->sprice }}</td>
-                            <td>{{ $stock->qty }}</td>
+                            <td>{{ $stock->sqty }}</td>
                             <td>{{ $stock->lot }}</td>
                             <td>{{ $stock->tname }}</td>
                             <td>{{ $stock->pname }}</td>
@@ -30,5 +30,6 @@
                     @endforeach
                 @endif
             </table>
+            <a href="{{ route('stocks.create') }}" class="btn btn-primary">{{ __('stocks.pages.create.submit') }}</a>
         </div>
     @endsection

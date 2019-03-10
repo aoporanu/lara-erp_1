@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\StocksCreateRequest;
 use App\Stock;
 use App\Product;
@@ -11,16 +10,23 @@ use Illuminate\Support\Facades\Redirect;
 
 class StockController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
-        $stocks = Stock::leftJoin('products', 'stocks.product_id', '=', 'products_id')
-        ->leftJoin('types', 'stocks.category_id', '=', 'types.id')
-            ->select('stocks.id', 'stocks.name', 'stocks.created_at', 'stocks.price as sprice', 'stocks.category_id', 'stocks.product_id', 'products.price as pprice', 'products.name as pname', 'types.name as tname')
+        $stocks = Stock::leftJoin('products', 'stocks.product_id', '=', 'products.id')
+            ->leftJoin('types', 'stocks.category_id', '=', 'types.id')
+            ->select('stocks.id', 'stocks.name', 'stocks.created_at', 'stocks.price as sprice', 'stocks.category_id', 'stocks.product_id', 'products.price as pprice', 'products.name as pname', 'types.name as tname', 'stocks.qty as sqty', 'stocks.lot')
             ->get();
-        return view('stocks.index', ['stocks' =>  $stocks]);
+        return view('stocks.index', ['stocks' => $stocks]);
     }
 
-    public function create(Product $product=null)
+    /**
+     * @param Product|null $product
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create(Product $product = null)
     {
         if ($product) {
             // to get things like GRAT or OTB
@@ -30,9 +36,12 @@ class StockController extends Controller
         return view('stocks.create');
     }
 
+    /**
+     * @param StocksCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StocksCreateRequest $request)
     {
-        dd($request->all());
         $stock = new Stock;
         $stock->name = $request->get('name');
         $stock->category_id = $request->get('category__id');
@@ -41,7 +50,11 @@ class StockController extends Controller
         $stock->lot = $request->get('lot');
         $stock->qty = $request->get('qty');
         $stock->description = $request->get('description');
-        $stock->save();
+        try {
+            $stock->save();
+        } catch (Exception $ex) {
+            abort(500, 'Could not create stock');
+        }
 
         // create movement
 
