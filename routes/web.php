@@ -1,9 +1,5 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -30,8 +26,16 @@ Route::post('type/store', 'TypesController@store')->name('types.store');
 
 Route::get('/orders/{username?}', 'OrdersController@show')->name('orders.show');
 
+Route::get('/shops', 'ShopController@index')->name('shops.index');
+
 Route::get('/shop/{public_id?}/orders', 'ShopController@show')->name('shops.show');
 
 Route::get('/shop/create', 'ShopController@create')->name('shops.create');
 
 Route::post('/shop/store', 'ShopController@store')->name('shops.store');
+
+Route::get('order/create', 'OrdersController@create')->name('orders.create');
+
+Route::get('order/store', 'OrdersController@store')->name('orders.store');
+
+Route::get('orders', 'OrdersController@index')->name('orders.index');
