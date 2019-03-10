@@ -28,10 +28,10 @@ Route::get('type/create', 'TypesController@create')->name('types.create');
 
 Route::post('type/store', 'TypesController@store')->name('types.store');
 
-//Route::get('types/get/{type?}', 'TypesController@get')->name('types.get');
-
-Route::get('/laraerp', function() {
-    LaraERP::sayHello();
-});
-
 Route::get('/orders/{username?}', 'OrdersController@show')->name('orders.show');
+
+Route::get('/shop/{public_id?}/orders', 'ShopController@show')->name('shops.show');
+
+Route::get('/shop/create', 'ShopController@create')->name('shops.create');
+
+Route::post('/shop/store', 'ShopController@store')->name('shops.store');

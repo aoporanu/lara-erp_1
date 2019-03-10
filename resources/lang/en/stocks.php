@@ -14,6 +14,7 @@ return [
             'product' => 'Product'
         ],
         'index' => [
+            'title' => 'Stocks Index',
             'id' => '#',
             'stock-name' => 'Stock ON',
             'stock-price' => 'Price on stock',
