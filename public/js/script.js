@@ -69,7 +69,7 @@ $.widget('ui.autocomplete', $.ui.autocomplete, {
                 _this.val(ui.item.name);
                 _hidden_field.val(ui.item.id);
                 if (typeof document.getElementById(_data.list) != 'undefined' && document.getElementById(_data.list) != null) {
-                    $('#'+ _data.list).append('<option value="' + ui.item.id + '">' + ui.item.name + ':' + $('#qty').val() + '</option>');
+                    $('#'+ _data.list).append('<option value="' + ui.item.id + ':'  + $('#qty').val() + '">' + ui.item.name + ':' + $('#qty').val() + '</option>');
                     $('#qty').val('');
                     $(_this).val('');
                 }

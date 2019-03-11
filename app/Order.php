@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int created_by
+ */
 class Order extends Model
 {
     protected $fillable = [

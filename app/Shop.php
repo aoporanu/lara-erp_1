@@ -13,11 +13,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Shop extends Model
 {
+    /**
+     * @param $int
+     * @return mixed
+     */
     public static function getByPublicId($int)
     {
         return self::where('public_id', $int)->first();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders()
     {
         return $this->hasMany(Order::class, 'client_id');
