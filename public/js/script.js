@@ -61,8 +61,18 @@ $.widget('ui.autocomplete', $.ui.autocomplete, {
             },
 
             select: function(event, ui) {
+                if(document.getElementById('qty') !== 'undefined' && document.getElementById('qty') != null) {
+                    if($('#qty').val() === '') {
+                        return;
+                    }
+                }
                 _this.val(ui.item.name);
                 _hidden_field.val(ui.item.id);
+                if (typeof document.getElementById(_data.list) != 'undefined' && document.getElementById(_data.list) != null) {
+                    $('#'+ _data.list).append('<option value="' + ui.item.id + '">' + ui.item.name + ':' + $('#qty').val() + '</option>');
+                    $('#qty').val('');
+                    $(_this).val('');
+                }
                 event.preventDefault();
             }
         })
@@ -83,7 +93,7 @@ $.widget('ui.autocomplete', $.ui.autocomplete, {
  * @param response the json response from the ajax call
  */
 function iterate(response) {
-    let filtered = new Array();
+    let filtered = [];
     // This was used with
     $.each(response, function(index, item) {
         if(item.id > 0) {

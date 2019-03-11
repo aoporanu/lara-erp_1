@@ -36,7 +36,7 @@ Route::post('/shop/store', 'ShopController@store')->name('shops.store');
 
 Route::get('order/create', 'OrdersController@create')->name('orders.create');
 
-Route::get('order/store', 'OrdersController@store')->name('orders.store');
+Route::post('order/store', 'OrdersController@store')->name('orders.store');
 
 Route::get('orders', 'OrdersController@index')->name('orders.index');
 

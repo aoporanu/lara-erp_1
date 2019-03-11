@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Order;
+use App\OrderProduct;
 use App\Product;
 use App\Shop;
 use App\User;
@@ -30,11 +31,13 @@ class ProductsCanBeAddedToOrder extends TestCase
         $products = factory(Product::class, 50)->create(['sku' => rand(100000, 200000)]);
 
         foreach ($products as $product) {
-            $product->qty = rand(10, 3000);
-            $order->products()->save($product);
+            $orderProduct = factory(OrderProduct::class)->create(['order_id' => $order->id, 'product_id' => $product->id, 'qty' => rand(1, 3000), 'price' => rand(.9, 100)]);
+//            $product->qty = rand(10, 3000);
+            $order->products()->attach($orderProduct, ['qty' => rand(1, 3000), 'price' => rand(.9, 100)]);
         }
 
 
         $user->orders()->save($order);
+
     }
 }
