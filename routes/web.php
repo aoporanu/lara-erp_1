@@ -39,3 +39,5 @@ Route::get('order/create', 'OrdersController@create')->name('orders.create');
 Route::get('order/store', 'OrdersController@store')->name('orders.store');
 
 Route::get('orders', 'OrdersController@index')->name('orders.index');
+
+Route::get('users', 'UsersController@index')->name('users.index');

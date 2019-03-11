@@ -72,7 +72,9 @@
         </nav>
 
         <main class="content">
-            @yield('content')
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Order;
+use App\Product;
 use App\Shop;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -25,6 +26,14 @@ class ProductsCanBeAddedToOrder extends TestCase
         $order = factory(Order::class)->create(['public_id' => rand(100000, 200000), 'name' => 'test order', 'created_by' => $user->public_id]);
         $shop = factory(Shop::class)->create(['public_id' => rand(100000, 200000), 'name' => 'asd asd asd', 'agent_id' => $user->public_id]);
         $shop->orders()->save($order);
+
+        $products = factory(Product::class, 50)->create(['sku' => rand(100000, 200000)]);
+
+        foreach ($products as $product) {
+            $product->qty = rand(10, 3000);
+            $order->products()->save($product);
+        }
+
 
         $user->orders()->save($order);
     }
