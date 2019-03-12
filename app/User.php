@@ -7,6 +7,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
+/**
+ * Class User
+ * @package App
+ * @method where
+ * @method first
+ */
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
@@ -38,13 +44,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders()
     {
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * @param $username
+     * @return mixed
+     */
     public static function findByUsername($username)
     {
-        return self::where('username', $username)->first();
+        return self::where('username', '=', $username)->first();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function distributors()
+    {
+        return $this->belongsToMany(Distributor::class, 'distributor_user');
     }
 }

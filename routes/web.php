@@ -47,3 +47,5 @@ Route::get('distributors', 'DistributorController@index')->name('distributors.in
 Route::get('distributor/create', 'DistributorController@create')->name('distributors.create');
 
 Route::post('distributor/store', 'DistributorController@store')->name('distributors.store');
+
+Route::get('{username?}/distributors/show', 'DistributorController@show')->name('distributors.show');

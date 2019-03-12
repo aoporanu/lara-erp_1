@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Distributor;
 use App\Http\Requests\DistributorCreateRequest;
+use App\User;
 
 class DistributorController extends Controller
 {
@@ -26,5 +27,14 @@ class DistributorController extends Controller
     {
         $distributor = new Distributor;
         $distributor->name = $request->get('name');
+    }
+
+    public function show($username=null)
+    {
+        if ($username) {
+            $user = User::findByUsername($username);
+            $distributors = $user->with('distributors')->get();
+        }
+        return view('distributors.show', ['distributors' => $distributors]);
     }
 }
