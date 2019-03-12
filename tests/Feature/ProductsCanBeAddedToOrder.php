@@ -30,6 +30,11 @@ class ProductsCanBeAddedToOrder extends TestCase
         $distributorRoshen = factory(Distributor::class)->create(['public_id' => rand(100000, 200000), 'name' => 'roshen']);
         $distributorRoshen->agents()->attach($user);
         $user->distributors()->attach($distributorRoshen);
+        $productRoshen = factory(Product::class, 50)->create(['public_id' => rand(100000, 200000)]);
+        $productKandia = factory(Product::class, 25)->create(['sku' => rand(200000, 300000)]);
+
+        $distributorKandia->products()->attach($productKandia);
+        $distributorRoshen->products()->attach($productRoshen);
 
         $response = $this->actingAs($user)
             ->get('/' . $user->username . '/distributors/show');

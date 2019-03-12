@@ -33,8 +33,9 @@ class DistributorController extends Controller
     {
         if ($username) {
             $user = User::findByUsername($username);
-            $distributors = $user->with('distributors')->get();
+            $distributors = $user->with('distributors.products')->get();
         }
+        dump($distributors);
         return view('distributors.show', ['distributors' => $distributors]);
     }
 }
