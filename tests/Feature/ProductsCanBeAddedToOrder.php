@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Distributor;
 use App\Order;
 use App\OrderProduct;
 use App\Product;
@@ -29,6 +30,13 @@ class ProductsCanBeAddedToOrder extends TestCase
         $shop->orders()->save($order);
 
         $products = factory(Product::class, 50)->create(['sku' => rand(100000, 200000)]);
+        $distributor0 = factory(Distributor::class)->create(['public_id' => rand(100000, 200000), 'name' => 'kandia']);
+        $distributor1 = factory(Distributor::class)->create(['public_id' => rand(100000, 200000), 'name' => 'scandia']);
+        $distributor2 = factory(Distributor::class)->create(['public_id' => rand(100000, 200000), 'name' => 'nestle']);
+
+        $distributor0->products()->attach($products->random());
+        $distributor1->products()->attach($products->random());
+        $distributor2->products()->attach($products->random());
 
         foreach ($products as $product) {
             $orderProduct = factory(OrderProduct::class)->create(['order_id' => $order->id, 'product_id' => $product->id, 'qty' => rand(1, 3000), 'price' => rand(.9, 100)]);
@@ -38,6 +46,8 @@ class ProductsCanBeAddedToOrder extends TestCase
 
 
         $user->orders()->save($order);
+
+        dump($user->with(['orders', 'products'])->get());
 
     }
 }

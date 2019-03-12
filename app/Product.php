@@ -21,4 +21,9 @@ class Product extends Model
     {
         return $this->belongsTo(Stock::class);
     }
+
+    public function distributors()
+    {
+        return $this->belongsToMany(Distributor::class);
+    }
 }
