@@ -41,3 +41,9 @@ Route::post('order/store', 'OrdersController@store')->name('orders.store');
 Route::get('orders', 'OrdersController@index')->name('orders.index');
 
 Route::get('users', 'UsersController@index')->name('users.index');
+
+Route::get('distributors', 'DistributorController@index')->name('distributors.index');
+
+Route::get('distributor/create', 'DistributorController@create')->name('distributors.create');
+
+Route::post('distributor/store', 'DistributorController@store')->name('distributors.store');

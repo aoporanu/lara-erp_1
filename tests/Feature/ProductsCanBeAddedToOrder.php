@@ -46,8 +46,5 @@ class ProductsCanBeAddedToOrder extends TestCase
 
 
         $user->orders()->save($order);
-
-        dump($user->with(['orders', 'products'])->get());
-
     }
 }

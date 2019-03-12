@@ -13,6 +13,7 @@ class ProductController extends Controller
         $products = Product::all();
 
         if(request()->ajax()) {
+            // @TODO get only products where the agent is registered to sell the distributor's products.
             $products = Product::select('id', 'name')->get();
 
             return response()->json($products);
