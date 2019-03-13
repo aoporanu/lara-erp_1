@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Distributor;
-use App\Order;
-use App\OrderProduct;
 use App\Product;
-use App\Shop;
+use App\Setting;
 use App\User;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithAuthentication;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -14,7 +12,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProductsCanBeAddedToOrder extends TestCase
+class AgentCanSeeOnlyHisDistributors extends TestCase
 {
     use DatabaseMigrations, InteractsWithAuthentication;
 
@@ -35,6 +33,7 @@ class ProductsCanBeAddedToOrder extends TestCase
 
         $distributorKandia->products()->attach($productKandia);
         $distributorRoshen->products()->attach($productRoshen);
+        $setting = factory(Setting::class)->create(['name' => 'multi_division', 'value' => 1]);
 
         $response = $this->actingAs($user)
             ->get('/' . $user->username . '/distributors/show');
