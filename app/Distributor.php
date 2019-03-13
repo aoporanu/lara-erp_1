@@ -30,4 +30,12 @@ class Distributor extends Model
         /** @noinspection PhpUndefinedClassInspection */
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

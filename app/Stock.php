@@ -23,11 +23,23 @@ class Stock extends Model
         'price',
         'lot',
         'category_id',
-        'product_id'
+        'product_id',
+        'distributor_id'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function distributor()
+    {
+        return $this->belongsTo(Distributor::class);
     }
 }

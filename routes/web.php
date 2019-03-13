@@ -49,3 +49,8 @@ Route::get('distributor/create', 'DistributorController@create')->name('distribu
 Route::post('distributor/store', 'DistributorController@store')->name('distributors.store');
 
 Route::get('{username?}/distributors/show', 'DistributorController@show')->name('distributors.show');
+
+Route::get('{username?}/products', 'UserController@myProducts')->name('agent.products');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
