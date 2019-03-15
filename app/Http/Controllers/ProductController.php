@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\ProductCreateRequest;
 use App\Product;
 
 class ProductController extends Controller
 {
+    private $productModel = null;
+
+    /**
+     * ProductController constructor.
+     */
+    public function __construct()
+    {
+        $this->productModel = new Product;
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function index()
     {
         $products = Product::all();
@@ -22,18 +34,21 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('products.create');
     }
 
+    /**
+     * @param ProductCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(ProductCreateRequest $request)
     {
-        $product = new Product;
-        $product->name = $request->get('name');
-        $product->description = $request->get('description');
-        $product->price = $request->get('price');
-        $product->save();
+        $this->productModel->storeProduct($request);
         if($request->get('btn_save')) {
             return redirect()->back()->with('message', __('products.pages.create.page_save'));
         }
@@ -42,6 +57,9 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * @param Product $product
+     */
     public function delete(Product $product)
     {
         try {

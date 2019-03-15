@@ -4,19 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ShopCreateRequest;
 use App\Shop;
-use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
+    private $shopModel = null;
+
+    /**
+     * ShopController constructor.
+     */
+    public function __construct()
+    {
+        $this->shopModel = new Shop;
+    }
+
+    /**
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show()
     {
         $path = request()->path();
         $pathArr = explode('/', $path);
 
-        if($pathArr[1] > 0) {
-            $shop = Shop::getByPublicId($pathArr[1]);
+        if ($pathArr[1] > 0) {
+            $shop = $this->shopModel::getByPublicId($pathArr[1]);
             return view('shops.show', ['orders' => $shop->orders]);
         }
+        return ['status' => 'error', 'message' => __('shops.pages.show.not-found')];
     }
 
     public function create()
@@ -24,17 +37,16 @@ class ShopController extends Controller
         return view('shops.create');
     }
 
+    /**
+     * @param ShopCreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(ShopCreateRequest $request)
     {
-        $shop = new Shop;
-        $shop->name = $request->get('name');
-        $shop->agent_id = $request->get('agent_id');
-        $shop->lat = $request->get('lat');
-        $shop->lng = $request->get('lng');
-        $shop->address = $request->get('address');
+        $this->shopModel->createShop($request, $shop);
 
-        $shop->save();
-
-        return redirect('shops.index')->with('message', __('shops.create.saved'));
+        return redirect('shops.index');
     }
+
+
 }

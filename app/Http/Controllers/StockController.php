@@ -10,15 +10,19 @@ use Illuminate\Support\Facades\Redirect;
 
 class StockController extends Controller
 {
+    private $stockModel = null;
+
+    public function __construct()
+    {
+        $this->stockModel = new Stock;
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $stocks = Stock::leftJoin('products', 'stocks.product_id', '=', 'products.id')
-            ->leftJoin('types', 'stocks.category_id', '=', 'types.id')
-            ->select('stocks.id', 'stocks.name', 'stocks.created_at', 'stocks.price as sprice', 'stocks.category_id', 'stocks.product_id', 'products.price as pprice', 'products.name as pname', 'types.name as tname', 'stocks.qty as sqty', 'stocks.lot')
-            ->get();
+        $stocks = $this->stockModel->getStocks();
         return view('stocks.index', ['stocks' => $stocks]);
     }
 
@@ -30,6 +34,9 @@ class StockController extends Controller
     {
         if ($product) {
             // to get things like GRAT or OTB
+            /** @noinspection PhpParamsInspection */
+            /** @var  $categories */
+            /** @noinspection PhpMethodNotFound */
             $categories = Type::where('for', 'stock')->get(['id', 'name']);
             return view('stocks.create', ['product' => $product, 'categories', $categories]);
         }
@@ -42,19 +49,7 @@ class StockController extends Controller
      */
     public function store(StocksCreateRequest $request)
     {
-        $stock = new Stock;
-        $stock->name = $request->get('name');
-        $stock->category_id = $request->get('category__id');
-        $stock->product_id = $request->get('product_id');
-        $stock->price = $request->get('price');
-        $stock->lot = $request->get('lot');
-        $stock->qty = $request->get('qty');
-        $stock->description = $request->get('description');
-        try {
-            $stock->save();
-        } catch (Exception $ex) {
-            abort(500, 'Could not create stock');
-        }
+        $this->stockModel->createStock($request);
 
         // create movement
 

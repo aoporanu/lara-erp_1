@@ -40,4 +40,15 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class, 'order_products');
     }
+
+    public function storeOrder($request)
+    {
+        $public_id = 100000;
+        $shop = Shop::getByPublicId($request->get('public_id'));
+        $order = new Order;
+        $order->created_by = $public_id;
+        $shop->orders()->save($order);
+
+        return $order;
+    }
 }

@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Distributor::class, 'distributor_user');
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function findByPublicId($id)
+    {
+        return self::where('public_id', $id)->first();
+    }
+
 }
