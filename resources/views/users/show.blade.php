@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
-    <h4 class="page-title">{{ __('users.pages.show.title') }}</h3>
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+        {{ __('users.pages.show.title') }}
+    </div>
     <nav class="nav nav-pills nav-justified" role="tablist" id="myTab">
       <a class="nav-link active" href="#general">{{ __('users.pages.show.general') }}</a>
       <a class="nav-link" href="#distributors">{{ __('users.pages.show.distributors') }}</a>
@@ -108,7 +110,7 @@
                                     <i class="fa fa-check{{ $route->day7 == 1 ? ' text-success' : '' }}"></i>
                                 </td>
                                 <td>
-
+                                    <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
                                 </td>
                             </tr>
                         @endforeach
