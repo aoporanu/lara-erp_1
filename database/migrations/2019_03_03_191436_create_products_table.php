@@ -16,6 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('sku');
+            $table->string('name');
+            $table->string('lot');
+            $table->double('price');
+            $table->date('expiry');
             $table->timestamps();
         });
     }

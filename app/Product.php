@@ -22,15 +22,15 @@ class Product extends Model
      */
     public function stock()
     {
-        return $this->belongsTo(Stock::class);
+        return $this->belongsTo(Stock::class, 'id_products');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function distributors()
+    public function distributor()
     {
-        return $this->belongsToMany(Distributor::class);
+        return $this->belongsTo(Distributor::class);
     }
 
     /**

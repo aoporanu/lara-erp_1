@@ -58,6 +58,7 @@ class User extends Authenticatable
      */
     public static function findByUsername($username)
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return self::where('username', '=', $username)->first();
     }
 
@@ -75,7 +76,24 @@ class User extends Authenticatable
      */
     public static function findByPublicId($id)
     {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
         return self::where('public_id', $id)->first();
     }
 
+    public function getNyProducts($username)
+    {
+        return self::findByUsername($username)
+            ->leftJoin('distributor_user', 'users.id', '=', 'distributor_user.user_id')
+            ->leftJoin('distributors', 'distributors.id', '=', 'distributor_user.distributor_id')
+            ->leftJoin('stocks', 'stocks.distributor_id', '=', 'distributors.id')
+            ->leftJoin('products', 'stocks.id_products', '=', 'products.id')
+            ->select('distributors.name as dis.name',
+                'distributors.id as dis.id',
+                'products.id as product.id',
+                'products.name as product.name',
+                'products.price as product.price',
+                'stocks.id as stock.id',
+                'stocks.name as stock.name')
+            ->get();
+    }
 }

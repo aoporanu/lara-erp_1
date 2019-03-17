@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Distributor;
 use App\User;
 
 class UserController extends Controller
@@ -22,7 +23,6 @@ class UserController extends Controller
      */
     public function myProducts($username = null)
     {
-        $user = $this->userModel::findByUsername($username);
-        return view('users.my-products', ['stocks' => $user->distributors->with('stocks')]);
+        return view('users.my-products', ['stocks' => $this->userModel->getMyProducts($username)]);
     }
 }
