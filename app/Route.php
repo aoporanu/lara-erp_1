@@ -28,6 +28,6 @@ class Route extends Model
      */
     public function client()
     {
-        return $this->belongsTo(Client::class, 'shop_id', 'cui');
+        return $this->hasMany(Client::class, 'id', 'shop_id');
     }
 }

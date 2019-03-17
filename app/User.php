@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password',
     ];
 
     /**
@@ -98,5 +98,14 @@ class User extends Authenticatable
                 'stocks.id as stock.id',
                 'stocks.name as stock.name')
             ->get();
+    }
+
+    /**
+     * HasOne Route
+     * @return Collection Route
+     */
+    public function route()
+    {
+        return $this->hasMany(Route::class, 'agent_id');
     }
 }

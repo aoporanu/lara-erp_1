@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    <h4 class="page-title">{{ __('users.pages.show.title') }}</h3>
     <nav class="nav nav-pills nav-justified" role="tablist" id="myTab">
       <a class="nav-link active" href="#general">{{ __('users.pages.show.general') }}</a>
       <a class="nav-link" href="#distributors">{{ __('users.pages.show.distributors') }}</a>
@@ -43,7 +44,76 @@
             asd3
         </div>
         <div class="tab-pane fade" id="clients">
-            asd4
+            @if (count($user->route) === 0)
+                <p class="alert alert-danger">{{ __('users.pages.show.messages.no-routes') }}</p>
+            @else
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{ __('users.pages.show.labels.client') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day1') }}
+
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day2') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day3') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day4') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day5') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day6') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-day7') }}
+                            </th>
+                            <th>
+                                {{ __('users.pages.show.labels.client-actions') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($user->route as $route)
+                            <tr>
+                                <td>
+                                    {{ $route->client[0]->name }}
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day1 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day2 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day3 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day4 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day5 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day6 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-check{{ $route->day7 == 1 ? ' text-success' : '' }}"></i>
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+            @endif
         </div>
     </div>
 @endsection
