@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -59,7 +58,7 @@ class User extends Authenticatable
     public static function findByUsername($username)
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        return self::where('username', '=', $username)->first();
+        return (new User)->where('username', '=', $username)->first();
     }
 
     /**
@@ -77,10 +76,14 @@ class User extends Authenticatable
     public static function findByPublicId($id)
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        return self::where('public_id', $id)->first();
+        return (new User)->where('public_id', $id)->first();
     }
 
-    public function getNyProducts($username)
+    /**
+     * @param null $username
+     * @return mixed
+     */
+    public function getMyProducts($username = null)
     {
         return self::findByUsername($username)
             ->leftJoin('distributor_user', 'users.id', '=', 'distributor_user.user_id')

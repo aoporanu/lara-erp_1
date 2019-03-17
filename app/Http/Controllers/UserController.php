@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Distributor;
 use App\User;
 
 class UserController extends Controller
@@ -18,11 +17,36 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $username
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myProducts($username = null)
+    public function myProducts()
     {
-        return view('users.my-products', ['stocks' => $this->userModel->getMyProducts($username)]);
+        $user = $this->userModel->findByUsername(request()->route()->parameter('username'));
+        dump($user->distributors()->with('products'));
+        die;
+        return view('users.my-products', ['stocks' => $this->userModel->getMyProducts($user->username)]);
+    }
+
+    /**
+     * get user's distributors, although it can be done with the
+     * @show method
+     * @return [type] [description]
+     */
+    public function distributors()
+    {
+        $user = $this->userModel->findByUsername(request()->route()->parameter('username'));
+
+        return view('users.distributors', ['user' => $user]);
+    }
+
+    /**
+     * [show description]
+     * @return [type] [description]
+     */
+    public function show()
+    {
+        $user = $this->userModel->findByUsername(request()->route()->parameter('username'));
+
+        return view('users.show', ['user' => $user]);
     }
 }

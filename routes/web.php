@@ -54,3 +54,5 @@ Route::get('{username?}/products', 'UserController@myProducts')->name('agent.pro
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('{username?}/distributors', 'UserController@show')->name('users.show');

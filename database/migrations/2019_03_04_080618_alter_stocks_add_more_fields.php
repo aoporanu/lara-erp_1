@@ -11,18 +11,18 @@ class AlterStocksAddMoreFields extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::table('stocks', function(Blueprint $table) {
-            $table->string('name')->nullable();
-            $table->string('description')->nullable();
-            $table->double('price')->nullable();
-            $table->integer('qty')->nullable();
-            $table->integer('id_products')->unsigned()->nullable();
-            $table->integer('distributor_id')->unsigned()->nullable();
-            $table->foreign('distributor_id')->references('id')->on('distributors');
-        });
-    }
+    // public function up()
+    // {
+    //     Schema::table('stocks', function(Blueprint $table) {
+    //         $table->string('name')->nullable();
+    //         $table->string('description')->nullable();
+    //         $table->double('price')->nullable();
+    //         $table->integer('qty')->nullable();
+    //         $table->integer('id_products')->unsigned()->nullable();
+    //         $table->integer('distributor_id')->unsigned()->nullable();
+    //         $table->foreign('distributor_id')->references('id')->on('distributors');
+    //     });
+    // }
 
     /**
      * Reverse the migrations.
