@@ -17,6 +17,7 @@ return [
                     'name' => 'Distributor name',
                     'products' => 'Distributor product count',
                 ],
+                'ledgers' => 'Ledger',
                 'client' => 'Client name',
                 'client-day1' => 'Monday',
                 'client-day2' => 'Tuesday',

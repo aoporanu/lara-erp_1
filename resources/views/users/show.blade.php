@@ -49,7 +49,8 @@
             @if (count($user->route) === 0)
                 <p class="alert alert-danger">{{ __('users.pages.show.messages.no-routes') }}</p>
             @else
-                <table class="table table-striped">
+                <div class="table-responsive">
+                    <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>
@@ -89,32 +90,54 @@
                                     {{ $route->client[0]->name }}
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day1 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day1 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day2 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day2 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day3 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day3 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day4 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day4 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day5 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day5 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day6 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day6 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-check{{ $route->day7 == 1 ? ' text-success' : '' }}"></i>
+                                    <i class="fa fa-check{{ $route->day7 == 1 ? ' text-success' : ' text-danger' }}"></i>
                                 </td>
                                 <td>
-                                    <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @if ($route->day1 == 1 && $day === 1)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day2 == 1 && $day === 2)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day3 == 1 && $day === 3)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day4 == 1 && $day === 4)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day5 == 1 && $day === 5)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day6 == 1 && $day === 6)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    @if ($route->day7 == 1 && $day === 7)
+                                        <a href="{{ route('orders.create', ['client' => $route->client[0]->cui]) }}" class="btn btn-default">create order</a>
+                                    @endif
+                                    <a href="{{ route('users.ledger', ['client' => $route->client[0]->cui]) }}" class="btn btn-success">{{ __('users.pages.show.labels.ledgers') }}</a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
+                </div>
             @endif
         </div>
     </div>
