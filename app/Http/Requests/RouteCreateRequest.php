@@ -24,7 +24,10 @@ class RouteCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'user' => 'required|exists:users,public_id',
+            'shop_id' => 'required|exists:shops,cui',
+            'ceil' => 'required|numeric|min:1|max:4',
+            'payment_due' => 'required|numeric|min:1|max:2'
         ];
     }
 }

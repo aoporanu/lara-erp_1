@@ -30,4 +30,20 @@ class Route extends Model
     {
         return $this->hasMany(Client::class, 'id', 'shop_id');
     }
+
+    public function storeRoute($request)
+    {
+        $route = new Route;
+        $route->agent_id = $request->get('user');
+        $route->shop_id = $request->get('shop_id');
+        $route->ceil = $request->get('ceil');
+        $route->payment_due = $request->get('payment_due');
+
+
+        if($route->save()) {
+            return ['message' => __('route.pages.create.route_saved')];
+        }
+
+        return ['message' => __('route.pages.create.error_saving')];
+    }
 }
