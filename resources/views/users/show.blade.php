@@ -49,6 +49,55 @@
             @if (count($user->route) === 0)
                 <p class="alert alert-danger">{{ __('users.pages.show.messages.no-routes') }}</p>
             @else
+                <form action="" method="post" class="mb-2">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="hidden" name="user" value="{{ $user->public_id }}" />
+                            <label for="shop_id">{{ __('users.pages.show.form.shop_id') }}</label>
+                            <input type="text" id="shop_id" name="shop_id" class="form-control bs-autocomplete" value="{{ old('shop_id') }}" autocomplete="off" />
+                            <label for="ceil">{{ __('users.pages.show.form.ceil') }}</label>
+                            <input type="text" value="{{ old('ceil') }}" autocomplete="off" id="ceil" class="form-control" name="ceil" />
+                            <label for="payment_due">{{ __('users.pages.show.form.payment_due') }}</label>
+                            <input type="text" value="{{ old('payment_due') }}" autocomplete="off" id="payment_due" class="form-control" name="payment_due">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.mon') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.tue') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.wed') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.thu') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.fri') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.sat') }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" class="form-check-input" id="day[]" name="day[]" />
+                                <label class="form-check-label" for="day[]">{{ __('users.pages.show.form.sun') }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6"></div>
+                        <div class="form-group col-md-6">
+                            <button type="submit" class="btn btn-primary">{{ __('users.pages.show.form.submit') }}</button>
+                        </div>
+                    </div>
+                </form>
                 <div class="table-responsive">
                     <table class="table table-striped">
                     <thead>

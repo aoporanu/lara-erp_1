@@ -7,6 +7,8 @@ use App\Order;
 use App\OrderProduct;
 use /** @noinspection PhpUndefinedClassInspection */
     App\User;
+use App\Client;
+use Illuminate\Support\Facades\Request;
 
 class OrdersController extends Controller
 {
@@ -38,7 +40,8 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        return view('orders.create');
+        $client = Client::findByCUI(Request::get('client'));
+        return view('orders.create', ['client' => $client]);
     }
 
     /**
