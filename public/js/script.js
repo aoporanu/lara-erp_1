@@ -107,3 +107,8 @@ function iterate(response) {
 function format(item) {
     return item.name;
 }
+
+function checkCash(e) {
+    console.info('here');
+    console.info(e);
+}

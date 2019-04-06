@@ -28,9 +28,7 @@ class AlterProductsAddMoreFields extends Migration
     public function down()
     {
         Schema::table('products', function(Blueprint $table) {
-            $table->dropColumn('name');
-            $table->dropColumn('description');
-            $table->dropColumn('price');
+            $table->dropColumn('name', 'description', 'price');
         });
     }
 }
